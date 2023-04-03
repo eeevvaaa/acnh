@@ -1,5 +1,6 @@
-import 'package:acnh/sea_creature_page.dart';
 import 'package:flutter/material.dart';
+import 'package:acnh/sea_creature_page.dart';
+import 'package:acnh/presentation/theme/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -12,17 +13,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    // return Column(children: const [Text('Sea Creatures')]);
     return Scaffold(
       appBar: AppBar(
         title: const Text('ACNH Wiki'),
       ),
-      // body: Column(children: const [
-      //   TextButton(onPressed: null, child: Text('Sea Creatures'))
-      // ])
       body: Center(
-          child: Column(children: const [
-        TextButton(onPressed: null, child: Text('Sea Creatures'))
+          child: Column(children: [
+        TextButton(
+          onPressed: () {
+            Navigator.push<void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const SeaCreaturesPage(),
+              ),
+            );
+          },
+          child: const Text('Sea Creatures'),
+        ),
+        const TextButton(
+          onPressed: null,
+          child: Text('Fish'),
+        )
       ])),
     );
   }

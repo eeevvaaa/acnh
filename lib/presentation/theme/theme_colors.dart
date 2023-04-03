@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'color_palette.dart';
 
-class ThemeColor {
-  const ThemeColor._();
+class ThemeColors {
+  const ThemeColors._();
 
   static const Color mainGreen = ColorPalette.lightGreen;
   static const Color mainBlue = ColorPalette.electricBlue;
