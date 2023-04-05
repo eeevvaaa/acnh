@@ -16,7 +16,7 @@ class IconListViewPage extends StatefulWidget {
 }
 
 class _IconListViewPageState extends State<IconListViewPage> {
-  late List<String> _iconUrls = [];
+  late List<Map<String, dynamic>> _items = [];
 
   @override
   void initState() {
@@ -28,11 +28,7 @@ class _IconListViewPageState extends State<IconListViewPage> {
     final response =
         await http.get(Uri.parse('http://acnhapi.com/v1/${widget.endpoint}'));
     final data = json.decode(response.body) as Map<String, dynamic>;
-    final items = data.values.toList();
-    _iconUrls = items
-        .map((item) => item['icon_uri'].toString())
-        .toList()
-        .cast<String>();
+    _items = data.values.toList().cast<Map<String, dynamic>>();
     setState(() {});
   }
 
@@ -42,15 +38,50 @@ class _IconListViewPageState extends State<IconListViewPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _iconUrls == null
+      body: _items.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 1,
               ),
-              itemCount: _iconUrls.length,
-              itemBuilder: (context, index) => Image.network(_iconUrls[index]),
+              itemCount: _items.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                          title: Text(_items[index]['name']['name-USen']),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.network(
+                                    _items[index]['image_uri'].toString()),
+                                const SizedBox(height: 8),
+                                if (_items[index]['availability'] &&
+                                    (_items[index]['availability']['location']
+                                            as String)
+                                        .isNotEmpty)
+                                  Text(
+                                      'Location: ${_items[index]['availability']['location']}'),
+                                if (_items[index]['availability']['rarity'] !=
+                                        null &&
+                                    (_items[index]['availability']['rarity']
+                                            as String)
+                                        .isNotEmpty)
+                                  Text(
+                                      'Rarity: ${_items[index]['availability']['rarity']}'),
+                                Text('Sell price: ${_items[index]['price']}'),
+                              ],
+                            ),
+                          ));
+                    },
+                  );
+                },
+                child: Image.network(_items[index]['icon_uri'].toString()),
+              ),
             ),
     );
   }
