@@ -16,45 +16,44 @@ class IconListViewPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemsAsyncValue = ref.watch(acnhProvider(endpoint));
-    final items = useState<List<Item>?>(null);
-
-    useEffect(() {
-      itemsAsyncValue.whenData((response) {
-        final decodedData = jsonDecode(response) as Map<String, dynamic>;
-        items.value = decodedData.values
-            .map<Item>((jsonItem) => Item.fromJson(jsonItem))
-            .toList();
-      });
-    }, [itemsAsyncValue]);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('ACNH $endpoint'),
       ),
-      body: items.value == null
-          ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-              ),
-              itemCount: items.value!.length,
-              itemBuilder: (context, index) {
-                final item = items.value![index];
+      body: itemsAsyncValue.when(
+        data: (response) {
+          final decodedData = jsonDecode(response) as Map<String, dynamic>;
+          final items = decodedData.values
+              .map<Item>((jsonItem) => Item.fromJson(jsonItem))
+              .toList();
 
-                return InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => ItemDialog(item: item),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.network(item.iconUrl),
-                  ),
-                );
-              },
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
             ),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+
+              return InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => ItemDialog(item: item),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(item.iconUrl),
+                ),
+              );
+            },
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      ),
     );
   }
 }

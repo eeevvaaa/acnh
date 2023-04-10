@@ -5,10 +5,12 @@ import 'home_page.dart';
 import 'icon_list_view_page.dart';
 
 void main() {
-  runApp(ProviderScope(child: AnimalCrossingNewHorizonWiki()));
+  runApp(const ProviderScope(child: AnimalCrossingNewHorizonWiki()));
 }
 
 class AnimalCrossingNewHorizonWiki extends StatelessWidget {
+  const AnimalCrossingNewHorizonWiki({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

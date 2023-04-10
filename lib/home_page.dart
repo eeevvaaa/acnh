@@ -14,6 +14,8 @@ class HomePage extends HookWidget {
     Category(name: 'Sea Creatures', endpoint: 'sea'),
   ];
 
+  HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
