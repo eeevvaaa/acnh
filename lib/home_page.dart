@@ -1,50 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:acnh/icon_list_view_page.dart';
-import 'package:acnh/presentation/theme/theme.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.buttons});
-  final List<HomeButton> buttons;
+import 'package:acnh/button.dart';
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+import '../models/category.dart';
 
-class _HomePageState extends State<HomePage> {
+class HomePage extends HookWidget {
+  final categories = [
+    Category(name: 'Fish', endpoint: 'fish'),
+    Category(name: 'Bugs', endpoint: 'bugs'),
+    Category(name: 'Art', endpoint: 'art'),
+    Category(name: 'Villagers', endpoint: 'villagers'),
+    Category(name: 'Sea Creatures', endpoint: 'sea'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ACNH Wiki'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            for (final button in widget.buttons)
-              TextButton(
-                onPressed: () {
-                  Navigator.push<void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => IconListViewPage(
-                        endpoint: button.endpoint,
-                        title: button.text,
-                      ),
-                    ),
-                  );
-                },
-                child: Text(button.text),
-              ),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+
+          return Button(
+            name: category.name,
+            onPressed: () {
+              Navigator.pushNamed(context, category.endpoint);
+            },
+          );
+        },
       ),
     );
   }
-}
-
-class HomeButton {
-  HomeButton({required this.text, required this.endpoint});
-
-  final String text;
-  final String endpoint;
 }

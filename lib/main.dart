@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:acnh/home_page.dart';
+import 'home_page.dart';
+import 'icon_list_view_page.dart';
 
 void main() {
-  runApp(const AnimalCrossingNewHorizonWiki());
+  runApp(ProviderScope(child: AnimalCrossingNewHorizonWiki()));
 }
 
 class AnimalCrossingNewHorizonWiki extends StatelessWidget {
-  const AnimalCrossingNewHorizonWiki({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final buttons = [
-      HomeButton(text: 'Sea Creatures', endpoint: 'sea'),
-      HomeButton(text: 'Fish', endpoint: 'fish'),
-      HomeButton(text: 'Bugs', endpoint: 'bugs'),
-      // HomeButton(text: 'Art', endpoint: 'art'),
-      HomeButton(text: 'Villagers', endpoint: 'villagers')
-    ];
     return MaterialApp(
       title: 'ACNH Wiki',
-      home: HomePage(
-        buttons: buttons,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: HomePage(),
+      routes: {
+        'fish': (context) => const IconListViewPage(endpoint: 'fish'),
+        'bugs': (context) => const IconListViewPage(endpoint: 'bugs'),
+        'art': (context) => const IconListViewPage(endpoint: 'art'),
+        'villagers': (context) => const IconListViewPage(endpoint: 'villagers'),
+        'sea': (context) => const IconListViewPage(endpoint: 'sea'),
+      },
     );
   }
 }
