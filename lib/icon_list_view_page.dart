@@ -4,9 +4,9 @@ import 'package:acnh/utils/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/item.dart';
+import 'models/fish.dart';
 import '../providers/acnh_provider.dart';
-import './item_dialog.dart';
+import 'fish_dialog.dart';
 
 class IconListViewPage extends HookConsumerWidget {
   final String endpoint;
@@ -25,7 +25,7 @@ class IconListViewPage extends HookConsumerWidget {
         data: (response) {
           final decodedData = jsonDecode(response) as Map<String, dynamic>;
           final items = decodedData.values
-              .map<Item>((jsonItem) => Item.fromJson(jsonItem))
+              .map<Fish>((jsonItem) => Fish.fromJson(jsonItem))
               .toList();
 
           return GridView.builder(
@@ -40,12 +40,12 @@ class IconListViewPage extends HookConsumerWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ItemDialog(item: item),
+                    builder: (context) => FishDialog(fishData: item),
                   );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.network(item.iconUrl),
+                  child: Image.network(item.iconUri),
                 ),
               );
             },
