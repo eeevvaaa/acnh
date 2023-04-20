@@ -34,7 +34,13 @@ class VillagerDialog extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text('ID: ${villagerData.id}'),
                 const SizedBox(height: 8),
-                Text('Availability: ${villagerData.personality}'),
+                Text('Personality: ${villagerData.personality}'),
+                const SizedBox(height: 8),
+                Text('Birthday: ${villagerData.birthday}'),
+                const SizedBox(height: 8),
+                Text('Species: ${villagerData.species}'),
+                const SizedBox(height: 8),
+                Text('Gender: ${villagerData.gender}'),
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {

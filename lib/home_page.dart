@@ -10,10 +10,10 @@ class HomePage extends HookWidget {
   final categories = [
     Category(name: 'Fish', endpoint: 'fish', dataType: DataType.fish),
     Category(name: 'Bugs', endpoint: 'bugs', dataType: DataType.bugs),
-    Category(name: 'Art', endpoint: 'art', dataType: DataType.art),
     Category(
         name: 'Villagers', endpoint: 'villagers', dataType: DataType.villagers),
     Category(name: 'Sea Creatures', endpoint: 'sea', dataType: DataType.sea),
+    Category(name: 'Art', endpoint: 'art', dataType: DataType.art),
   ];
 
   HomePage({super.key});
@@ -32,6 +32,7 @@ class HomePage extends HookWidget {
           return Button(
             name: category.name,
             onPressed: () {
+              // Add this line
               Navigator.pushNamed(
                 context,
                 category.endpoint,

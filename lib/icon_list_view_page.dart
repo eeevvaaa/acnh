@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:acnh/bug_dialog.dart';
+import 'package:acnh/sea_dialog.dart';
 import 'package:acnh/utils/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +11,7 @@ import 'models/data_type.dart';
 import 'models/fish.dart';
 import '../providers/acnh_provider.dart';
 import 'fish_dialog.dart';
+import 'models/sea.dart';
 import 'models/villager.dart';
 import 'villager_dialog.dart';
 
@@ -38,6 +41,8 @@ class IconListViewPage extends HookConsumerWidget {
                 return Villager.fromJson(jsonItem);
               case DataType.bugs:
                 return Bug.fromJson(jsonItem);
+              case DataType.sea:
+                return Sea.fromJson(jsonItem);
               default:
                 throw Exception('Invalid dataType');
             }
@@ -61,7 +66,10 @@ class IconListViewPage extends HookConsumerWidget {
                           return FishDialog(fishData: item as Fish);
                         case DataType.villagers:
                           return VillagerDialog(villagerData: item as Villager);
-                        // Add cases for other data types and their respective dialogs
+                        case DataType.bugs:
+                          return BugDialog(bugData: item as Bug);
+                        case DataType.sea:
+                          return SeaDialog(seaData: item as Sea);
                         default:
                           throw Exception('Invalid dataType');
                       }

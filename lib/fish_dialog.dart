@@ -36,6 +36,12 @@ class FishDialog extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text('Availability: ${fishData.availability}'),
                 const SizedBox(height: 8),
+                Text('Price: ${fishData.price}'),
+                const SizedBox(height: 8),
+                Text('Price CJ: ${fishData.priceCJ}'),
+                const SizedBox(height: 8),
+                Text('Shadow: ${fishData.shadow}'),
+                const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);

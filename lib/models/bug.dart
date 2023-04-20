@@ -1,12 +1,11 @@
 class Bug {
-  final String id;
+  final int id;
   final String name;
   final String iconUri;
   final String imageUri;
   final String availability;
-  final String price;
-  final String priceFlick;
-  final String shadow;
+  final int price;
+  final int priceFlick;
 
   Bug(
       {required this.id,
@@ -15,8 +14,7 @@ class Bug {
       required this.imageUri,
       required this.availability,
       required this.price,
-      required this.priceFlick,
-      required this.shadow});
+      required this.priceFlick});
 
   factory Bug.fromJson(Map<String, dynamic> json) {
     return Bug(
@@ -26,7 +24,6 @@ class Bug {
         imageUri: json['image_uri'],
         availability: json['availability']['month-array-northern'].toString(),
         price: json['price'],
-        priceFlick: json['price-flick'],
-        shadow: json['shadow']);
+        priceFlick: json['price-flick']);
   }
 }

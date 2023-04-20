@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'models/bug.dart';
+import 'models/sea.dart';
 
-class BugDialog extends StatelessWidget {
-  final Bug bugData;
+class SeaDialog extends StatelessWidget {
+  final Sea seaData;
 
-  const BugDialog({super.key, required this.bugData});
+  const SeaDialog({super.key, required this.seaData});
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +20,27 @@ class BugDialog extends StatelessWidget {
               children: [
                 Center(
                   child: Image.network(
-                    bugData.imageUri,
+                    seaData.imageUri,
                     height: 200,
                     width: 200,
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  bugData.name,
+                  seaData.name,
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text('ID: ${bugData.id}'),
+                Text('ID: ${seaData.id}'),
                 const SizedBox(height: 8),
-                Text('Availability: ${bugData.availability}'),
+                Text('Availability: ${seaData.availability}'),
                 const SizedBox(height: 8),
-                Text('Price: ${bugData.price}'),
+                Text('Price: ${seaData.price}'),
                 const SizedBox(height: 8),
-                Text('Price Flick: ${bugData.priceFlick}'),
+                Text('Speed: ${seaData.speed}'),
+                const SizedBox(height: 8),
+                Text('Shadow: ${seaData.shadow}'),
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {

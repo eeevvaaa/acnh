@@ -1,5 +1,5 @@
 class Villager {
-  final String id;
+  final int id;
   final String name;
   final String iconUri;
   final String imageUri;
