@@ -4,14 +4,19 @@ import 'package:acnh/utils/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'models/bug.dart';
+import 'models/data_type.dart';
 import 'models/fish.dart';
 import '../providers/acnh_provider.dart';
 import 'fish_dialog.dart';
+import 'models/villager.dart';
 
 class IconListViewPage extends HookConsumerWidget {
   final String endpoint;
+  final DataType dataType;
 
-  const IconListViewPage({super.key, required this.endpoint});
+  const IconListViewPage(
+      {super.key, required this.endpoint, required this.dataType});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,9 +29,18 @@ class IconListViewPage extends HookConsumerWidget {
       body: itemsAsyncValue.when(
         data: (response) {
           final decodedData = jsonDecode(response) as Map<String, dynamic>;
-          final items = decodedData.values
-              .map<Fish>((jsonItem) => Fish.fromJson(jsonItem))
-              .toList();
+          final items = decodedData.values.map<dynamic>((jsonItem) {
+            switch (dataType) {
+              case DataType.fish:
+                return Fish.fromJson(jsonItem);
+              case DataType.villagers:
+                return Villager.fromJson(jsonItem);
+              case DataType.bugs:
+                return Bug.fromJson(jsonItem);
+              default:
+                throw Exception('Invalid dataType');
+            }
+          }).toList();
 
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

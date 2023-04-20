@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'models/villager.dart';
+import 'models/bug.dart';
 
-class VillagerCard extends StatelessWidget {
-  final Villager villagerData;
+class BugDialog extends StatelessWidget {
+  final Bug bugData;
 
-  const VillagerCard({super.key, required this.villagerData});
+  const BugDialog({super.key, required this.bugData});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +20,21 @@ class VillagerCard extends StatelessWidget {
               children: [
                 Center(
                   child: Image.network(
-                    villagerData.imageUri,
+                    bugData.imageUri,
                     height: 200,
                     width: 200,
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  villagerData.name,
+                  bugData.name,
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text('ID: ${villagerData.id}'),
+                Text('ID: ${bugData.id}'),
                 const SizedBox(height: 8),
-                Text('Availability: ${villagerData.personality}'),
+                Text('Availability: ${bugData.availability}'),
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {
