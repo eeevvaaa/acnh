@@ -10,6 +10,7 @@ import 'models/fish.dart';
 import '../providers/acnh_provider.dart';
 import 'fish_dialog.dart';
 import 'models/villager.dart';
+import 'villager_dialog.dart';
 
 class IconListViewPage extends HookConsumerWidget {
   final String endpoint;
@@ -54,7 +55,17 @@ class IconListViewPage extends HookConsumerWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => FishDialog(fishData: item),
+                    builder: (context) {
+                      switch (dataType) {
+                        case DataType.fish:
+                          return FishDialog(fishData: item as Fish);
+                        case DataType.villagers:
+                          return VillagerDialog(villagerData: item as Villager);
+                        // Add cases for other data types and their respective dialogs
+                        default:
+                          throw Exception('Invalid dataType');
+                      }
+                    },
                   );
                 },
                 child: Padding(

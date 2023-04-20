@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'models/villager.dart';
 
-class VillagerCard extends StatelessWidget {
+class VillagerDialog extends StatelessWidget {
   final Villager villagerData;
 
-  const VillagerCard({super.key, required this.villagerData});
+  const VillagerDialog({super.key, required this.villagerData});
 
   @override
   Widget build(BuildContext context) {

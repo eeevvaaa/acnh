@@ -4,14 +4,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:acnh/button.dart';
 
 import '../models/category.dart';
+import '../models/data_type.dart';
 
 class HomePage extends HookWidget {
   final categories = [
-    Category(name: 'Fish', endpoint: 'fish'),
-    Category(name: 'Bugs', endpoint: 'bugs'),
-    Category(name: 'Art', endpoint: 'art'),
-    Category(name: 'Villagers', endpoint: 'villagers'),
-    Category(name: 'Sea Creatures', endpoint: 'sea'),
+    Category(name: 'Fish', endpoint: 'fish', dataType: DataType.fish),
+    Category(name: 'Bugs', endpoint: 'bugs', dataType: DataType.bugs),
+    Category(name: 'Art', endpoint: 'art', dataType: DataType.art),
+    Category(
+        name: 'Villagers', endpoint: 'villagers', dataType: DataType.villagers),
+    Category(name: 'Sea Creatures', endpoint: 'sea', dataType: DataType.sea),
   ];
 
   HomePage({super.key});
@@ -30,7 +32,14 @@ class HomePage extends HookWidget {
           return Button(
             name: category.name,
             onPressed: () {
-              Navigator.pushNamed(context, category.endpoint);
+              Navigator.pushNamed(
+                context,
+                category.endpoint,
+                arguments: {
+                  'endpoint': category.endpoint,
+                  'dataType': category.dataType
+                },
+              );
             },
           );
         },
