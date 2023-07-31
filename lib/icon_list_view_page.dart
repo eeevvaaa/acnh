@@ -6,6 +6,8 @@ import 'package:acnh/utils/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'art_dialog.dart';
+import 'models/art.dart';
 import 'models/bug.dart';
 import 'models/data_type.dart';
 import 'models/fish.dart';
@@ -43,6 +45,8 @@ class IconListViewPage extends HookConsumerWidget {
                 return Bug.fromJson(jsonItem);
               case DataType.sea:
                 return Sea.fromJson(jsonItem);
+              case DataType.art: // Add this case
+                return Art.fromJson(jsonItem);
               default:
                 throw Exception('Invalid dataType');
             }
@@ -70,6 +74,8 @@ class IconListViewPage extends HookConsumerWidget {
                           return BugDialog(bugData: item as Bug);
                         case DataType.sea:
                           return SeaDialog(seaData: item as Sea);
+                        case DataType.art:
+                          return ArtDialog(artData: item as Art);
                         default:
                           throw Exception('Invalid dataType');
                       }
@@ -78,7 +84,9 @@ class IconListViewPage extends HookConsumerWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.network(item.iconUri),
+                  child: Image.network(
+                    dataType == DataType.art ? item.imageUri : item.iconUri,
+                  ),
                 ),
               );
             },
